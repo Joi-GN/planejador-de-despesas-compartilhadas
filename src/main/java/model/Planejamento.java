@@ -51,6 +51,10 @@ public class Planejamento implements Serializable {
         despesas.add(d);
     }
 
+    public void removerDespesa(Despesa d) {
+        despesas.remove(d);
+    }
+
     public Map<Participante, Double> calcularTotaisIndividuais() {
         Map<Participante, Double> totais = new HashMap<>();
         for (Participante p : participantes) {

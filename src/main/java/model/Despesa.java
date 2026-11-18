@@ -25,6 +25,10 @@ public abstract class Despesa implements Serializable {
 
     public abstract void calcularRateio(Map<Participante, Double> extratoIndividual);
 
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
     public String getDescricao() {
         return descricao;
     }

@@ -1,11 +1,20 @@
 package view;
 
 import controller.PlanejamentoController;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import model.Despesa;
+import model.Participante;
 import model.Planejamento;
 
 /**
@@ -32,7 +41,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         personalizarTabela();
         inicializarControladores();
-        inicializarModels();
+        inicializarModelosComponentes();
+        adicionarMouseListenerNaTabelaDespesas();
         carregarPlanejamentos();
     }
 
@@ -63,6 +73,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPaneDespesas = new javax.swing.JScrollPane();
         tabelaDespesas = new javax.swing.JTable();
         labelCustoTotal = new javax.swing.JLabel();
+        labelDica1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cabe no Bolso - Planejador de Despesas Compartilhadas");
@@ -135,7 +146,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(labelPlanejamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoNovoPlanejamento, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addComponent(botaoNovoPlanejamento, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(170, 170, 170))
@@ -183,10 +194,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Participantes", "Orçamento", "Despesa 1", "Despesa 2", "Total Individual", "Situação"
             }
         ));
+        tabelaDespesas.setShowGrid(false);
         jScrollPaneDespesas.setViewportView(tabelaDespesas);
 
         labelCustoTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelCustoTotal.setText("Custo Total: R$ 0,00");
+
+        labelDica1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        labelDica1.setText("Duplo clique em um orçamento ou despesa para editar");
 
         javax.swing.GroupLayout PainelDespesasLayout = new javax.swing.GroupLayout(PainelDespesas);
         PainelDespesas.setLayout(PainelDespesasLayout);
@@ -195,10 +210,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(PainelDespesasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PainelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grupoBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Despesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-                    .addComponent(labelCustoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelCustoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(PainelDespesasLayout.createSequentialGroup()
+                        .addComponent(grupoBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelDespesasLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(labelDica1)))
                 .addContainerGap())
         );
         PainelDespesasLayout.setVerticalGroup(
@@ -209,6 +229,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(grupoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelDica1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCustoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,7 +323,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoExcluirParticipanteActionPerformed
 
     private void listaPlanejamentosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPlanejamentosValueChanged
-        // TODO add your handling code here:
         // Seleciona o planejamento clicado da lista
         if (!listaPlanejamentos.isSelectionEmpty()) {
             int indicePlanejamento = listaPlanejamentos.getSelectedIndex();
@@ -320,10 +341,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         planejamentoController = new PlanejamentoController();
     }
 
-    private void inicializarModels() {
+    private void inicializarModelosComponentes() {
         listaPlanejamentoModel = new DefaultListModel<>();
         listaPlanejamentos.setModel(listaPlanejamentoModel);
-        tabelaDespesasModel = new DefaultTableModel();
+        tabelaDespesasModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
         tabelaDespesas.setModel(tabelaDespesasModel);
     }
 
@@ -333,7 +359,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         for (Planejamento item : planejamentos) {
             listaPlanejamentoModel.addElement(item);
         }
-        
+
         if (!listaPlanejamentoModel.isEmpty()) {
             listaPlanejamentos.setSelectedIndex(0);
             selecionarPlanejamento(0);
@@ -343,7 +369,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void atualizarTabelaDespesas() {
         boolean existePlanejamentoSelecionado = planejamentoAtual != null;
-        
+
         if (existePlanejamentoSelecionado) {
             var colunas = planejamentoController.montarColunasResumo(planejamentoAtual);
             var linhas = planejamentoController.montarLinhasResumo(planejamentoAtual);
@@ -353,12 +379,123 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else {
             tabelaDespesasModel.setDataVector(new Object[0][0],
                     new Object[]{"Participantes", "Orçamento", "Total Individual", "Situação"});
-        } 
+        }
+
+    }
+
+    private void adicionarMouseListenerNaTabelaDespesas() {
+        //Adiciona um mouse listener para ativar a edição de orçamento e editar/excluir despesa 
+        tabelaDespesas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) {
+                    return;
+                }
+
+                int linha = tabelaDespesas.rowAtPoint(e.getPoint());
+                int coluna = tabelaDespesas.columnAtPoint(e.getPoint());
+                if (linha < 0 || coluna < 0) {
+                    return;
+                }
+
+                //Pega o index do modelo da tabela, pois as colunas da tabela podem ter sido reordenadas pelo usuário
+                int linhaModelo = tabelaDespesas.convertRowIndexToModel(linha);
+                int colunaModelo = tabelaDespesas.convertColumnIndexToModel(coluna);
+
+                //Coluna do orçamento do Participante
+                if (colunaModelo == 1) {
+                    Participante p = planejamentoAtual.getParticipantes().get(linhaModelo);
+                    editarOrcamento(p);
+
+                    // Colunas das despesas
+                } else if (colunaModelo >= 2 && colunaModelo < 2 + planejamentoAtual.getDespesas().size()) {
+                    Despesa d = planejamentoAtual.getDespesas().get(colunaModelo - 2);
+                    editarOuExcluirDespesa(d);
+                }
+            }
+        });
+        tabelaDespesas.getTableHeader().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() != 2) {
+                    return;
+                }
+
+                JTableHeader header = (JTableHeader) e.getSource();
+                int colunaView = header.columnAtPoint(e.getPoint());
+                if (colunaView == -1) {
+                    return;
+                }
+                int colunaModelo = tabelaDespesas.convertColumnIndexToModel(colunaView);
+
+                if (colunaModelo >= 2 && colunaModelo < 2 + planejamentoAtual.getDespesas().size()) {
+                    Despesa d = planejamentoAtual.getDespesas().get(colunaModelo - 2);
+                    editarOuExcluirDespesa(d);
+                }
+            }
+        });
     }
 
     private void selecionarPlanejamento(int indice) {
         this.planejamentoAtual = (Planejamento) listaPlanejamentoModel.get(indice);
         atualizarTabelaDespesas();
+    }
+
+    private void editarOrcamento(Participante p) {
+        String entrada = JOptionPane.showInputDialog(this,
+                "Novo orçamento de " + p.getNome() + ":",
+                String.valueOf(p.getOrcamento()).replace('.', ','));
+        if (entrada == null) {
+            return;
+        }
+
+        try {
+            double valor = Double.parseDouble(entrada.trim().replace(',', '.'));
+            if (valor < 0) {
+                throw new NumberFormatException();
+            }
+            p.setOrcamento(valor);
+            atualizarTabelaDespesas();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Informe um valor numérico válido.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void editarOuExcluirDespesa(Despesa d) {
+        JTextField campoValor = new JTextField(
+                String.valueOf(d.getValor()).replace('.', ','), 10);
+        JPanel painel = new JPanel(new GridLayout(0, 1, 4, 4));
+        painel.add(new JLabel("Descrição: " + d.getDescricao()));
+        painel.add(new JLabel("Valor total da despesa (R$):"));
+        painel.add(campoValor);
+
+        Object[] opcoes = {"Salvar", "Excluir", "Cancelar"};
+        int escolha = JOptionPane.showOptionDialog(this, painel, "Despesa",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, opcoes, opcoes[0]);
+
+        if (escolha == 0) { // Salvar
+            try {
+                double valor = Double.parseDouble(campoValor.getText().trim().replace(',', '.'));
+                if (valor < 0) {
+                    throw new NumberFormatException();
+                }
+                d.setValor(valor);
+                atualizarTabelaDespesas();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Informe um valor numérico válido.",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (escolha == 1) { // Excluir
+            int confirma = JOptionPane.showConfirmDialog(this,
+                    "Excluir a despesa \"" + d.getDescricao() + "\"?",
+                    "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+            if (confirma == JOptionPane.YES_OPTION) {
+                planejamentoAtual.removerDespesa(d);
+                atualizarTabelaDespesas();
+            }
+        }
     }
 
     /**
@@ -400,6 +537,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneDespesas;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel labelCustoTotal;
+    private javax.swing.JLabel labelDica1;
     private javax.swing.JLabel labelPlanejamentos;
     private javax.swing.JLabel labelSubtitulo;
     private javax.swing.JLabel labelTitulo;

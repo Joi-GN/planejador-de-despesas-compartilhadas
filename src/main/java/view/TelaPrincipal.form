@@ -140,7 +140,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelPlanejamentos" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoNovoPlanejamento" pref="43" max="32767" attributes="0"/>
+                      <Component id="botaoNovoPlanejamento" pref="65" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="222" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
@@ -216,10 +216,17 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="grupoBotoes" max="-2" attributes="0"/>
                           <Component id="Despesas" max="32767" attributes="0"/>
                           <Component id="jScrollPaneDespesas" pref="764" max="32767" attributes="0"/>
                           <Component id="labelCustoTotal" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="grupoBotoes" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="labelDica1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -233,6 +240,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="grupoBotoes" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="labelDica1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPaneDespesas" min="-2" pref="199" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelCustoTotal" min="-2" pref="28" max="-2" attributes="0"/>
@@ -318,7 +327,11 @@
                         <Column editable="true" title="Situa&#xe7;&#xe3;o" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="showGrid" type="boolean" value="false"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="TelaPrincipal_tabelaDespesas"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -328,6 +341,14 @@
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Custo Total: R$ 0,00"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelDica1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI Light" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Duplo clique em um or&#xe7;amento ou despesa para editar"/>
               </Properties>
             </Component>
           </SubComponents>
