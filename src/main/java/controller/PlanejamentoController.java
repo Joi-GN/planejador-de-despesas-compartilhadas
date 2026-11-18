@@ -45,6 +45,10 @@ public class PlanejamentoController {
         p.adicionarParticipante(new Participante(codigo, nome.trim(), orcamento));
     }
 
+    public boolean existeCodigo(Planejamento p, int codigo) {
+        return p.existeParticipanteComCodigo(codigo);
+    }
+
     public void adicionarDespesa(Planejamento p, String descricao, double valor,
             boolean fixa, List<Participante> envolvidos) {
         if (descricao == null || descricao.trim().isEmpty()) {

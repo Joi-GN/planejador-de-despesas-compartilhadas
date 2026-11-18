@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.util.function.IntPredicate;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,13 +12,14 @@ import javax.swing.JOptionPane;
  * @author Joice
  */
 public class ModalNovoParticipante extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModalNovoParticipante.class.getName());
-    
+
     private boolean valido = false;
     private String nome;
     private int codigo;
     private double orcamento;
+    private IntPredicate verificadorCodigo;
 
     /**
      * Creates new form ModalNovoParticipante
@@ -160,28 +162,34 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setVerificadorCodigo(IntPredicate verificador) {
+        this.verificadorCodigo = verificador;
+    }
+
     public void validar() {
         try {
             this.nome = campoNomeParticipante.getText().trim();
             this.codigo = Integer.parseInt(campoCodigoParticipante.getText().trim());
             this.orcamento = Double.parseDouble(campoOrcamentoParticipante.getText().trim().replace(",", "."));
-            
+
             if (this.getNome().isBlank()) {
                 throw new IllegalArgumentException("O nome não pode estar vazio.");
-            } else {
-                this.valido = true;
-                JOptionPane.showMessageDialog(rootPane,
-                        "Participante salvo com sucesso");
-                this.dispose();
             }
+            if (verificadorCodigo != null && verificadorCodigo.test(codigo)) {
+                throw new IllegalArgumentException("Já existe um participante com o código " + codigo + ".");
+            }
+            
+            this.valido = true;
+            this.dispose();
+            
         } catch (NumberFormatException e) {
             exibirErro("Código e Orçamento devem ser numéricos.");
-        } catch (Exception e) {
-            exibirErro("Houve um erro ao salvar o planejamento: " + e.getMessage());
+        } catch (IllegalArgumentException  e) {
+            exibirErro(e.getMessage());
         }
     }
-    
-    public boolean isValido(){
+
+    public boolean isValido() {
         return valido;
     }
 
@@ -196,7 +204,7 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
     public double getOrcamento() {
         return orcamento;
     }
-    
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha o modal
         this.dispose();
@@ -210,6 +218,7 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
     private void exibirErro(String msg) {
         JOptionPane.showMessageDialog(this, "Erro: " + msg, "Erro", JOptionPane.ERROR_MESSAGE);
     }
+
     /**
      * @param args the command line arguments
      */

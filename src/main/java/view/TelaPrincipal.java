@@ -263,7 +263,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (planejamentoAtual == null) {
             JOptionPane.showMessageDialog(this, "Crie ou selecione um planejamento primeiro.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            var modal = new ModalNovoParticipante(this, rootPaneCheckingEnabled);
+            var modal = new ModalNovoParticipante(this, true);
+            modal.setVerificadorCodigo(codigo -> planejamentoController.existeCodigo(planejamentoAtual, codigo));
             modal.setVisible(true);
             if (modal.isValido()) {
                 planejamentoController.adicionarParticipante(planejamentoAtual, modal.getCodigo(), modal.getNome(), modal.getOrcamento());

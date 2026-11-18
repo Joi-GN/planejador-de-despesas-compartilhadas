@@ -14,15 +14,6 @@ public class Planejamento implements Serializable {
     private List<Participante> participantes = new ArrayList<>();
     private List<Despesa> despesas = new ArrayList<>();
 
-    public void adicionarParticipante(Participante p) {
-        for (Participante existente : participantes) {
-            if (existente.getCodigo() == p.getCodigo()) {
-                throw new IllegalArgumentException("Já existe um participante com este código.");
-            }
-        }
-        participantes.add(p);
-    }
-
     public Planejamento() {
     }
 
@@ -72,6 +63,17 @@ public class Planejamento implements Serializable {
             total += val;
         }
         return Math.round(total * 100.0) / 100.0;
+    }
+
+    public boolean existeParticipanteComCodigo(int codigo) {
+        return participantes.stream().anyMatch(p -> p.getCodigo() == codigo);
+    }
+     
+    public void adicionarParticipante(Participante p) {
+        if (existeParticipanteComCodigo(p.getCodigo())) {
+            throw new IllegalArgumentException("Já existe um participante com este código.");
+        }
+        participantes.add(p);
     }
 
     public List<Participante> getParticipantes() {
