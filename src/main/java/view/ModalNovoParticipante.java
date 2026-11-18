@@ -37,13 +37,13 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        tituloNovoPlanejamento = new javax.swing.JLabel();
-        subtituloNovoPlanejamento = new javax.swing.JLabel();
+        labelTitulo = new javax.swing.JLabel();
+        labelSubtitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         labelCodigoParticipante = new javax.swing.JLabel();
         campoCodigoParticipante = new javax.swing.JTextField();
-        cancelarNovoPlanejamento = new javax.swing.JButton();
-        addNovoPlanejamento = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnAddNovo = new javax.swing.JButton();
         labelNomeParticipante = new javax.swing.JLabel();
         campoNomeParticipante = new javax.swing.JTextField();
         labelOrcamentoParticipante = new javax.swing.JLabel();
@@ -54,13 +54,13 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(4, 76, 244));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        tituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        tituloNovoPlanejamento.setForeground(new java.awt.Color(255, 255, 255));
-        tituloNovoPlanejamento.setText("Novo Participante");
+        labelTitulo.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        labelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        labelTitulo.setText("Novo Participante");
 
-        subtituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        subtituloNovoPlanejamento.setForeground(new java.awt.Color(255, 255, 255));
-        subtituloNovoPlanejamento.setText("Adicionar novo participante");
+        labelSubtitulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
+        labelSubtitulo.setText("Adicionar novo participante");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,27 +69,27 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subtituloNovoPlanejamento)
-                    .addComponent(tituloNovoPlanejamento))
+                    .addComponent(labelSubtitulo)
+                    .addComponent(labelTitulo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(tituloNovoPlanejamento)
+                .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subtituloNovoPlanejamento)
+                .addComponent(labelSubtitulo)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         labelCodigoParticipante.setText("Código");
 
-        cancelarNovoPlanejamento.setText("Cancelar");
-        cancelarNovoPlanejamento.addActionListener(this::cancelarNovoPlanejamentoActionPerformed);
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
-        addNovoPlanejamento.setText("Ok");
-        addNovoPlanejamento.addActionListener(this::addNovoPlanejamentoActionPerformed);
+        btnAddNovo.setText("Ok");
+        btnAddNovo.addActionListener(this::btnAddNovoActionPerformed);
 
         labelNomeParticipante.setText("Nome do participante");
 
@@ -111,9 +111,9 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
                             .addComponent(labelOrcamentoParticipante))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cancelarNovoPlanejamento)
+                                .addComponent(btnCancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(addNovoPlanejamento))
+                                .addComponent(btnAddNovo))
                             .addComponent(campoCodigoParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -134,8 +134,8 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
                 .addComponent(campoOrcamentoParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarNovoPlanejamento)
-                    .addComponent(addNovoPlanejamento))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAddNovo))
                 .addGap(17, 17, 17))
         );
 
@@ -197,15 +197,15 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         return orcamento;
     }
     
-    private void cancelarNovoPlanejamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarNovoPlanejamentoActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha o modal
         this.dispose();
-    }//GEN-LAST:event_cancelarNovoPlanejamentoActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void addNovoPlanejamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNovoPlanejamentoActionPerformed
+    private void btnAddNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNovoActionPerformed
         // Valida campos
         this.validar();
-    }//GEN-LAST:event_addNovoPlanejamentoActionPerformed
+    }//GEN-LAST:event_btnAddNovoActionPerformed
 
     private void exibirErro(String msg) {
         JOptionPane.showMessageDialog(this, "Erro: " + msg, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -248,17 +248,17 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addNovoPlanejamento;
+    private javax.swing.JButton btnAddNovo;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JTextField campoCodigoParticipante;
     private javax.swing.JTextField campoNomeParticipante;
     private javax.swing.JTextField campoOrcamentoParticipante;
-    private javax.swing.JButton cancelarNovoPlanejamento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelCodigoParticipante;
     private javax.swing.JLabel labelNomeParticipante;
     private javax.swing.JLabel labelOrcamentoParticipante;
-    private javax.swing.JLabel subtituloNovoPlanejamento;
-    private javax.swing.JLabel tituloNovoPlanejamento;
+    private javax.swing.JLabel labelSubtitulo;
+    private javax.swing.JLabel labelTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -57,8 +57,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="subtituloNovoPlanejamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tituloNovoPlanejamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSubtitulo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -68,16 +68,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="tituloNovoPlanejamento" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="subtituloNovoPlanejamento" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelSubtitulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="tituloNovoPlanejamento">
+        <Component class="javax.swing.JLabel" name="labelTitulo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Black" size="18" style="0"/>
@@ -88,7 +88,7 @@
             <Property name="text" type="java.lang.String" value="Novo Participante"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="subtituloNovoPlanejamento">
+        <Component class="javax.swing.JLabel" name="labelSubtitulo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -119,9 +119,9 @@
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="cancelarNovoPlanejamento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="addNovoPlanejamento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddNovo" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="campoCodigoParticipante" alignment="1" min="-2" pref="365" max="-2" attributes="0"/>
                           </Group>
@@ -148,8 +148,8 @@
                   <Component id="campoOrcamentoParticipante" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="28" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cancelarNovoPlanejamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="addNovoPlanejamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAddNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
@@ -164,20 +164,20 @@
         </Component>
         <Component class="javax.swing.JTextField" name="campoCodigoParticipante">
         </Component>
-        <Component class="javax.swing.JButton" name="cancelarNovoPlanejamento">
+        <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarNovoPlanejamentoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="addNovoPlanejamento">
+        <Component class="javax.swing.JButton" name="btnAddNovo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ok"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNovoPlanejamentoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddNovoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelNomeParticipante">

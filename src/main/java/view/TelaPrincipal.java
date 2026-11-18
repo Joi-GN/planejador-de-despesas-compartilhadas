@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Participante;
 import model.Planejamento;
 
 /**
@@ -46,10 +45,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PainelDespesasNenhumProjeto = new javax.swing.JPanel();
-        labelDespesas2 = new javax.swing.JLabel();
-        labelNenhumProjeto = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         labelTitulo = new javax.swing.JLabel();
         labelSubtitulo = new javax.swing.JLabel();
@@ -65,54 +60,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         botaoAddParticipante = new javax.swing.JButton();
         botaoAddDespesa = new javax.swing.JButton();
         botaoExcluirParticipante = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneDespesas = new javax.swing.JScrollPane();
         tabelaDespesas = new javax.swing.JTable();
         labelCustoTotal = new javax.swing.JLabel();
-
-        PainelDespesasNenhumProjeto.setBackground(new java.awt.Color(51, 51, 51));
-        PainelDespesasNenhumProjeto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        labelDespesas2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        labelDespesas2.setForeground(new java.awt.Color(255, 255, 255));
-        labelDespesas2.setText("Despesas");
-
-        labelNenhumProjeto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        labelNenhumProjeto.setForeground(new java.awt.Color(255, 255, 255));
-        labelNenhumProjeto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelNenhumProjeto.setText("Nenhum projeto foi selecionado");
-        labelNenhumProjeto.setToolTipText("");
-
-        javax.swing.GroupLayout PainelDespesasNenhumProjetoLayout = new javax.swing.GroupLayout(PainelDespesasNenhumProjeto);
-        PainelDespesasNenhumProjeto.setLayout(PainelDespesasNenhumProjetoLayout);
-        PainelDespesasNenhumProjetoLayout.setHorizontalGroup(
-            PainelDespesasNenhumProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelDespesasNenhumProjetoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelDespesasNenhumProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDespesas2, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-                    .addComponent(labelNenhumProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        PainelDespesasNenhumProjetoLayout.setVerticalGroup(
-            PainelDespesasNenhumProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelDespesasNenhumProjetoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelDespesas2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(201, 201, 201)
-                .addComponent(labelNenhumProjeto)
-                .addContainerGap(224, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cabe no Bolso - Planejador de Despesas Compartilhadas");
@@ -157,11 +107,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelPlanejamentos.setText("Planejamentos");
 
         listaPlanejamentos.setFixedCellHeight(30);
-        listaPlanejamentos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaPlanejamentosMouseClicked(evt);
-            }
-        });
+        listaPlanejamentos.addListSelectionListener(this::listaPlanejamentosValueChanged);
         jScrollPane3.setViewportView(listaPlanejamentos);
 
         botaoNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -237,7 +183,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Participantes", "Orçamento", "Despesa 1", "Despesa 2", "Total Individual", "Situação"
             }
         ));
-        jScrollPane1.setViewportView(tabelaDespesas);
+        jScrollPaneDespesas.setViewportView(tabelaDespesas);
 
         labelCustoTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelCustoTotal.setText("Custo Total: R$ 0,00");
@@ -251,7 +197,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(PainelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(grupoBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Despesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addComponent(labelCustoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -263,7 +209,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(grupoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCustoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(165, 165, 165))
@@ -291,10 +237,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoAddParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddParticipanteActionPerformed
-        // TODO add your handling code here:
+        // Adiciona novo participante se existe um planejamento selecionado
         if (planejamentoAtual == null) {
             JOptionPane.showMessageDialog(this, "Crie ou selecione um planejamento primeiro.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
         } else {
             var modal = new ModalNovoParticipante(this, rootPaneCheckingEnabled);
             modal.setVisible(true);
@@ -307,11 +252,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void botaoAddDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddDespesaActionPerformed
         // Abre o modal de cadastro de nova despesa
-        var modal = new ModalNovaDespesa(this, rootPaneCheckingEnabled, planejamentoAtual);
-        modal.setVisible(true);
-        if (modal.isValido()) {
-            planejamentoController.adicionarDespesa(planejamentoAtual, modal.getDescricao(), modal.getValor(), modal.isFixa(), modal.getParticipantesSelecionados());
-            atualizarTabelaDespesas();
+        if (planejamentoAtual == null) {
+            JOptionPane.showMessageDialog(this, "Crie ou selecione um planejamento primeiro.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else if (planejamentoAtual.getParticipantes().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Cadastre pelo menos um participante antes de adicionar despesas.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            var modal = new ModalNovaDespesa(this, rootPaneCheckingEnabled, planejamentoAtual);
+            modal.setVisible(true);
+            if (modal.isValido()) {
+                planejamentoController.adicionarDespesa(planejamentoAtual, modal.getDescricao(), modal.getValor(), modal.isFixa(), modal.getParticipantesSelecionados());
+                atualizarTabelaDespesas();
+            }
         }
     }//GEN-LAST:event_botaoAddDespesaActionPerformed
 
@@ -325,11 +276,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoNovoPlanejamentoActionPerformed
 
-    private void listaPlanejamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPlanejamentosMouseClicked
-        int indicePlanejamento = listaPlanejamentos.getSelectedIndex();
-        selecionarPlanejamento(indicePlanejamento);
-    }//GEN-LAST:event_listaPlanejamentosMouseClicked
-
     private void botaoExcluirParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirParticipanteActionPerformed
         if (planejamentoAtual == null) {
             JOptionPane.showMessageDialog(this, "Selecione um planejamento para excluir.", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -338,7 +284,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         int op = JOptionPane.showConfirmDialog(this,
                 "Excluir o planejamento \"" + planejamentoAtual.getNome() + "\"?",
                 "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (op != JOptionPane.YES_OPTION) return;
+        if (op != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         planejamentoController.excluirPlanejamento(planejamentoAtual);
         planejamentos = planejamentoController.listarPlanejamentos();
@@ -346,10 +294,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         planejamentoAtual = null;
         if (!listaPlanejamentoModel.isEmpty()) {
             listaPlanejamentos.setSelectedIndex(0);
+            selecionarPlanejamento(0);
         } else {
             atualizarTabelaDespesas();
         }
     }//GEN-LAST:event_botaoExcluirParticipanteActionPerformed
+
+    private void listaPlanejamentosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPlanejamentosValueChanged
+        // TODO add your handling code here:
+        // Seleciona o planejamento clicado da lista
+        if (!listaPlanejamentos.isSelectionEmpty()) {
+            int indicePlanejamento = listaPlanejamentos.getSelectedIndex();
+            selecionarPlanejamento(indicePlanejamento);
+        }
+    }//GEN-LAST:event_listaPlanejamentosValueChanged
 
     private void personalizarTabela() {
 //        tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -375,11 +333,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         for (Planejamento item : planejamentos) {
             listaPlanejamentoModel.addElement(item);
         }
-
-        if (listaPlanejamentoModel.isEmpty()) {
-//            alternarPainelNenhumConteudoEncontrado(false);
-//            jLabelNoContentFoundHint.setText("Clique no botão '+' do lado do título Projetos e adicione um projeto");
-        } else {
+        
+        if (!listaPlanejamentoModel.isEmpty()) {
             listaPlanejamentos.setSelectedIndex(0);
             selecionarPlanejamento(0);
             atualizarTabelaDespesas();
@@ -387,44 +342,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     private void atualizarTabelaDespesas() {
-        if (planejamentoAtual != null) {
-            var colunas= planejamentoController.montarColunasResumo(planejamentoAtual);
+        boolean existePlanejamentoSelecionado = planejamentoAtual != null;
+        
+        if (existePlanejamentoSelecionado) {
+            var colunas = planejamentoController.montarColunasResumo(planejamentoAtual);
             var linhas = planejamentoController.montarLinhasResumo(planejamentoAtual);
             tabelaDespesasModel.setDataVector(linhas.toArray(new Object[0][]), colunas.toArray());
-            
+
             labelCustoTotal.setText(planejamentoController.calcularCustoTotal(planejamentoAtual));
         } else {
             tabelaDespesasModel.setDataVector(new Object[0][0],
                     new Object[]{"Participantes", "Orçamento", "Total Individual", "Situação"});
-        }
+        } 
     }
 
     private void selecionarPlanejamento(int indice) {
         this.planejamentoAtual = (Planejamento) listaPlanejamentoModel.get(indice);
         atualizarTabelaDespesas();
     }
-
-//    private void alternarPainelNenhumConteudoEncontrado(boolean hasTasks) {
-//        if (hasTasks) {
-//            if (PainelDespesasNenhumProjeto.isVisible()) {
-//                PainelDespesasNenhumProjeto.setVisible(false);
-//                PainelDespesas.remove(PainelDespesasNenhumProjeto);
-//            }
-//            PainelDespesas.add(jScrollPaneTasks);
-//            jScrollPaneTasks.setVisible(true);
-//            jScrollPaneTasks.setSize(PainelDespesas.getWidth(), PainelDespesas.getHeight());
-//            jTableTasks.setSize(PainelDespesas.getWidth(), PainelDespesas.getHeight());
-//        } else {
-//            if (jScrollPaneTasks.isVisible()) {
-//                jScrollPaneTasks.setVisible(false);
-//                PainelDespesas.remove(jScrollPaneTasks);
-//            }
-//            PainelDespesas.add(jPanelNoContentFound);
-//            PainelDespesasNenhumProjeto.setVisible(true);
-//            PainelDespesasNenhumProjeto.setSize(jPanelTasksContent.getWidth(), PainelDespesas.getHeight());
-    ////            jLabelNoContentFoundHint.setText("Clique no botão '+' do lado do título Tarefas e adicione uma tarefa");
-//        }
-//    }
 
     /**
      * @param args the command line arguments
@@ -434,7 +369,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-        */
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Java swing".equals(info.getName())) {
@@ -455,20 +390,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel Despesas;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel PainelDespesas;
-    private javax.swing.JPanel PainelDespesasNenhumProjeto;
     private javax.swing.JPanel PainelPlanejamentos;
     private javax.swing.JButton botaoAddDespesa;
     private javax.swing.JButton botaoAddParticipante;
     private javax.swing.JButton botaoExcluirParticipante;
     private javax.swing.JButton botaoNovoPlanejamento;
     private javax.swing.JToolBar grupoBotoes;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPaneDespesas;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel labelCustoTotal;
-    private javax.swing.JLabel labelDespesas2;
-    private javax.swing.JLabel labelNenhumProjeto;
     private javax.swing.JLabel labelPlanejamentos;
     private javax.swing.JLabel labelSubtitulo;
     private javax.swing.JLabel labelTitulo;
