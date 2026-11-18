@@ -240,7 +240,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaDespesas);
 
         labelCustoTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelCustoTotal.setText("Custo Total do Passeio: R$ 0,00");
+        labelCustoTotal.setText("Custo Total: R$ 0,00");
 
         javax.swing.GroupLayout PainelDespesasLayout = new javax.swing.GroupLayout(PainelDespesas);
         PainelDespesas.setLayout(PainelDespesasLayout);
@@ -391,10 +391,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             var colunas= planejamentoController.montarColunasResumo(planejamentoAtual);
             var linhas = planejamentoController.montarLinhasResumo(planejamentoAtual);
             tabelaDespesasModel.setDataVector(linhas.toArray(new Object[0][]), colunas.toArray());
+            
+            labelCustoTotal.setText(planejamentoController.calcularCustoTotal(planejamentoAtual));
         } else {
             tabelaDespesasModel.setDataVector(new Object[0][0],
                     new Object[]{"Participantes", "Orçamento", "Total Individual", "Situação"});
-//            lblCustoTotal.setText("Custo Total do Passeio: R$ 0,00");
         }
     }
 

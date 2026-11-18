@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import java.util.ArrayList;
@@ -99,6 +95,14 @@ public class PlanejamentoController {
             linhas.add(linha.toArray());
         }
         return linhas;
+    }
+
+    public String calcularCustoTotal(Planejamento p) {
+        if (p == null) {
+            return "Custo Total: R$ 0,00";
+        } else {
+            return "Custo Total: " + String.format(new Locale("pt", "BR"), "R$ %.2f", p.calcularCustoTotal());
+        }
     }
 
     public String situacao(Participante part, double total) {

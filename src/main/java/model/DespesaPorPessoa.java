@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DespesaPorPessoa extends Despesa {
+
     private static final long serialVersionUID = 1L;
 
     public DespesaPorPessoa(String descricao, double valorUnitario, List<Participante> participantes) {
