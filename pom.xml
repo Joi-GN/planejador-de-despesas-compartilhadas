@@ -10,4 +10,11 @@
         <maven.compiler.release>27</maven.compiler.release>
         <exec.mainClass>PlanejadorDeDespesasCompartilhadas</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.4</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -44,15 +44,16 @@ public class ModalNovoPlanejamento extends javax.swing.JDialog {
         addNovoPlanejamento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Planejamento");
 
         jPanel1.setBackground(new java.awt.Color(4, 76, 244));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        tituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        tituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         tituloNovoPlanejamento.setForeground(new java.awt.Color(255, 255, 255));
         tituloNovoPlanejamento.setText("Novo Planejamento");
 
-        subtituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        subtituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         subtituloNovoPlanejamento.setForeground(new java.awt.Color(255, 255, 255));
         subtituloNovoPlanejamento.setText("Adicionar novo planejamento");
 
@@ -77,12 +78,19 @@ public class ModalNovoPlanejamento extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        labelNomeNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelNomeNovoPlanejamento.setText("Nome do planejamento");
 
+        campoNomeNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        cancelarNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cancelarNovoPlanejamento.setText("Cancelar");
+        cancelarNovoPlanejamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelarNovoPlanejamento.addActionListener(this::cancelarNovoPlanejamentoActionPerformed);
 
+        addNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addNovoPlanejamento.setText("Ok");
+        addNovoPlanejamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addNovoPlanejamento.addActionListener(this::addNovoPlanejamentoActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -104,15 +112,15 @@ public class ModalNovoPlanejamento extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(labelNomeNovoPlanejamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoNomeNovoPlanejamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarNovoPlanejamento)
                     .addComponent(addNovoPlanejamento))
-                .addGap(17, 17, 17))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,7 +137,8 @@ public class ModalNovoPlanejamento extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();

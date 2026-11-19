@@ -1,6 +1,8 @@
 package view;
 
 import controller.PlanejamentoController;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,9 +15,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import model.Despesa;
 import model.Participante;
 import model.Planejamento;
@@ -63,104 +67,110 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Header = new javax.swing.JPanel();
         labelTitulo = new javax.swing.JLabel();
         labelSubtitulo = new javax.swing.JLabel();
-        btnSalvarPlanejamentos = new javax.swing.JButton();
-        btnCarregarPlanejamentos = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         PainelPlanejamentos = new javax.swing.JPanel();
         labelPlanejamentos = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listaPlanejamentos = new javax.swing.JList<>();
         botaoNovoPlanejamento = new javax.swing.JButton();
+        btnSalvarPlanejamentos = new javax.swing.JButton();
+        btnCarregarPlanejamentos = new javax.swing.JButton();
         PainelDespesas = new javax.swing.JPanel();
         Despesas = new javax.swing.JLabel();
-        grupoBotoes = new javax.swing.JToolBar();
-        botaoAddParticipante = new javax.swing.JButton();
-        botaoAddDespesa = new javax.swing.JButton();
-        botaoExcluirParticipante = new javax.swing.JButton();
         jScrollPaneDespesas = new javax.swing.JScrollPane();
         tabelaDespesas = new javax.swing.JTable();
         labelCustoTotal = new javax.swing.JLabel();
         labelDica1 = new javax.swing.JLabel();
+        painelBotoes = new javax.swing.JPanel();
+        botaoAddParticipante = new javax.swing.JButton();
+        botaoAddDespesa = new javax.swing.JButton();
+        botaoExcluirParticipante = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cabe no Bolso - Planejador de Despesas Compartilhadas");
         setBackground(new java.awt.Color(102, 102, 102));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(14440, 14440));
-        setMinimumSize(new java.awt.Dimension(900, 660));
-        setPreferredSize(new java.awt.Dimension(900, 600));
-        setSize(new java.awt.Dimension(900, 660));
+        setResizable(false);
+        setSize(new java.awt.Dimension(900, 600));
+
+        Header.setBackground(new java.awt.Color(4, 76, 244));
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
+        labelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         labelTitulo.setText("Cabe no Bolso");
 
-        labelSubtitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelSubtitulo.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        labelSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
         labelSubtitulo.setText("Aplicativo para planejamento de despesas compartilhadas");
-
-        btnSalvarPlanejamentos.setText("Salvar");
-        btnSalvarPlanejamentos.addActionListener(this::btnSalvarPlanejamentosActionPerformed);
-
-        btnCarregarPlanejamentos.setText("Carregar");
-        btnCarregarPlanejamentos.addActionListener(this::btnCarregarPlanejamentosActionPerformed);
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
         HeaderLayout.setHorizontalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(56, 56, 56)
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSubtitulo)
                     .addComponent(labelTitulo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addComponent(btnSalvarPlanejamentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCarregarPlanejamentos)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(22, 22, 22)
                 .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelSubtitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvarPlanejamentos)
-                    .addComponent(btnCarregarPlanejamentos))
-                .addContainerGap())
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jSplitPane2.setForeground(new java.awt.Color(255, 255, 255));
+        jSplitPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         PainelPlanejamentos.setForeground(new java.awt.Color(255, 255, 255));
 
-        labelPlanejamentos.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        labelPlanejamentos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         labelPlanejamentos.setText("Planejamentos");
 
-        listaPlanejamentos.setFixedCellHeight(30);
+        listaPlanejamentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        listaPlanejamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listaPlanejamentos.setFixedCellHeight(35);
         listaPlanejamentos.addListSelectionListener(this::listaPlanejamentosValueChanged);
         jScrollPane3.setViewportView(listaPlanejamentos);
 
-        botaoNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botaoNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         botaoNovoPlanejamento.setText("Novo Planejamento");
-        botaoNovoPlanejamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botaoNovoPlanejamento.setBorderPainted(false);
+        botaoNovoPlanejamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botaoNovoPlanejamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoNovoPlanejamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botaoNovoPlanejamento.addActionListener(this::botaoNovoPlanejamentoActionPerformed);
+
+        btnSalvarPlanejamentos.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnSalvarPlanejamentos.setText("Salvar");
+        btnSalvarPlanejamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvarPlanejamentos.addActionListener(this::btnSalvarPlanejamentosActionPerformed);
+
+        btnCarregarPlanejamentos.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnCarregarPlanejamentos.setText("Carregar");
+        btnCarregarPlanejamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCarregarPlanejamentos.addActionListener(this::btnCarregarPlanejamentosActionPerformed);
 
         javax.swing.GroupLayout PainelPlanejamentosLayout = new javax.swing.GroupLayout(PainelPlanejamentos);
         PainelPlanejamentos.setLayout(PainelPlanejamentosLayout);
         PainelPlanejamentosLayout.setHorizontalGroup(
             PainelPlanejamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelPlanejamentosLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(12, 12, 12)
                 .addGroup(PainelPlanejamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoNovoPlanejamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(labelPlanejamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(botaoNovoPlanejamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPlanejamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelPlanejamentosLayout.createSequentialGroup()
+                        .addComponent(btnSalvarPlanejamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCarregarPlanejamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         PainelPlanejamentosLayout.setVerticalGroup(
             PainelPlanejamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,43 +178,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(labelPlanejamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoNovoPlanejamento, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addComponent(botaoNovoPlanejamento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(170, 170, 170))
+                .addGroup(PainelPlanejamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvarPlanejamentos)
+                    .addComponent(btnCarregarPlanejamentos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(PainelPlanejamentos);
 
         PainelDespesas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        Despesas.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        Despesas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         Despesas.setText("Despesas");
 
-        grupoBotoes.setBorderPainted(false);
-
-        botaoAddParticipante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        botaoAddParticipante.setText("Adicionar Participante");
-        botaoAddParticipante.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoAddParticipante.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoAddParticipante.addActionListener(this::botaoAddParticipanteActionPerformed);
-        grupoBotoes.add(botaoAddParticipante);
-
-        botaoAddDespesa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        botaoAddDespesa.setText("Adicionar Despesa");
-        botaoAddDespesa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoAddDespesa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoAddDespesa.addActionListener(this::botaoAddDespesaActionPerformed);
-        grupoBotoes.add(botaoAddDespesa);
-
-        botaoExcluirParticipante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        botaoExcluirParticipante.setText("Excluir Planejamento");
-        botaoExcluirParticipante.setFocusable(false);
-        botaoExcluirParticipante.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoExcluirParticipante.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoExcluirParticipante.addActionListener(this::botaoExcluirParticipanteActionPerformed);
-        grupoBotoes.add(botaoExcluirParticipante);
-
+        tabelaDespesas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabelaDespesas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -215,15 +205,69 @@ public class TelaPrincipal extends javax.swing.JFrame {
             new String [] {
                 "Participantes", "Orçamento", "Despesa 1", "Despesa 2", "Total Individual", "Situação"
             }
-        ));
-        tabelaDespesas.setShowGrid(false);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaDespesas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabelaDespesas.setAutoscrolls(false);
+        tabelaDespesas.setRowHeight(35);
+        tabelaDespesas.setShowGrid(true);
         jScrollPaneDespesas.setViewportView(tabelaDespesas);
 
-        labelCustoTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelCustoTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         labelCustoTotal.setText("Custo Total: R$ 0,00");
 
-        labelDica1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        labelDica1.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
         labelDica1.setText("Duplo clique em um orçamento ou despesa para editar");
+
+        botaoAddParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        botaoAddParticipante.setText("Adicionar Participante");
+        botaoAddParticipante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoAddParticipante.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoAddParticipante.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoAddParticipante.addActionListener(this::botaoAddParticipanteActionPerformed);
+
+        botaoAddDespesa.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        botaoAddDespesa.setText("Adicionar Despesa");
+        botaoAddDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoAddDespesa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoAddDespesa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoAddDespesa.addActionListener(this::botaoAddDespesaActionPerformed);
+
+        botaoExcluirParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        botaoExcluirParticipante.setText("Excluir Planejamento");
+        botaoExcluirParticipante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoExcluirParticipante.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoExcluirParticipante.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoExcluirParticipante.addActionListener(this::botaoExcluirParticipanteActionPerformed);
+
+        javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
+        painelBotoes.setLayout(painelBotoesLayout);
+        painelBotoesLayout.setHorizontalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addComponent(botaoAddParticipante)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoAddDespesa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoExcluirParticipante)
+                .addGap(0, 193, Short.MAX_VALUE))
+        );
+        painelBotoesLayout.setVerticalGroup(
+            painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoAddParticipante, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(botaoAddDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoExcluirParticipante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout PainelDespesasLayout = new javax.swing.GroupLayout(PainelDespesas);
         PainelDespesas.setLayout(PainelDespesasLayout);
@@ -232,15 +276,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(PainelDespesasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PainelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Despesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addComponent(labelCustoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PainelDespesasLayout.createSequentialGroup()
-                        .addComponent(grupoBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelDespesasLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(labelDica1)))
+                        .addGroup(PainelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(painelBotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Despesas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelDica1))
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
         );
         PainelDespesasLayout.setVerticalGroup(
@@ -249,14 +292,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Despesas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(grupoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelDica1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelCustoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165))
+                .addComponent(labelCustoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jSplitPane2.setRightComponent(PainelDespesas);
@@ -266,14 +309,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jSplitPane2)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jSplitPane2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(526, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(149, 149, 149)
+                    .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(9, Short.MAX_VALUE)))
         );
 
         pack();
@@ -381,10 +429,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCarregarPlanejamentosActionPerformed
 
     private void personalizarTabela() {
-//        tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 14));
-//        tabelaDespesas.getTableHeader().setBackground(new Color(33, 33, 33));
-//        tabelaDespesas.getTableHeader().setForeground(Color.white);
-//        tabelaDespesas.setAutoCreateRowSorter(true);
+        tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI Semibold", 0, 14));
+        tabelaDespesas.getTableHeader().setBackground(new Color(235, 240, 255));
+
+        //Define se as colunas devem ser auto resize
+        final TableColumnModel columnModel = tabelaDespesas.getColumnModel();
+        if (tabelaDespesas.getColumnCount() > 8) {
+            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            for (int column = 0; column < tabelaDespesas.getColumnCount(); column++) {
+                columnModel.getColumn(column).setMinWidth(100);
+            }
+        } else {
+            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        }
     }
 
     private void inicializarControladores() {
@@ -426,11 +483,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             tabelaDespesasModel.setDataVector(linhas.toArray(new Object[0][]), colunas.toArray());
 
             labelCustoTotal.setText(planejamentoController.calcularCustoTotal(planejamentoAtual));
+
         } else {
             tabelaDespesasModel.setDataVector(new Object[0][0],
                     new Object[]{"Participantes", "Orçamento", "Total Individual", "Situação"});
         }
 
+        personalizarTabela();
     }
 
     private void adicionarMouseListenerNaTabelaDespesas() {
@@ -492,9 +551,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     private void editarOrcamento(Participante p) {
-        String entrada = JOptionPane.showInputDialog(this,
-                "Novo orçamento de " + p.getNome() + ":",
-                String.valueOf(p.getOrcamento()).replace('.', ','));
+        String entrada = JOptionPane.showInputDialog(this, "Novo orçamento de " + p.getNome() + ":", String.valueOf(p.getOrcamento()).replace('.', ','));
         if (entrada == null) {
             return;
         }
@@ -552,23 +609,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Java swing".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new TelaPrincipal().setVisible(true));
     }
@@ -584,7 +624,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botaoNovoPlanejamento;
     private javax.swing.JButton btnCarregarPlanejamentos;
     private javax.swing.JButton btnSalvarPlanejamentos;
-    private javax.swing.JToolBar grupoBotoes;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPaneDespesas;
     private javax.swing.JSplitPane jSplitPane2;
@@ -594,6 +633,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelSubtitulo;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JList<String> listaPlanejamentos;
+    private javax.swing.JPanel painelBotoes;
     private javax.swing.JTable tabelaDespesas;
     // End of variables declaration//GEN-END:variables
 

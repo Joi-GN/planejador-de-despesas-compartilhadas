@@ -72,17 +72,19 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
         listaParticipantesDespesa = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nova Despesa");
+        setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(4, 76, 244));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        tituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        tituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         tituloNovoPlanejamento.setForeground(new java.awt.Color(255, 255, 255));
         tituloNovoPlanejamento.setText("Nova Despesa");
 
-        subtituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        subtituloNovoPlanejamento.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         subtituloNovoPlanejamento.setForeground(new java.awt.Color(255, 255, 255));
-        subtituloNovoPlanejamento.setText("Adicionar novo despesa");
+        subtituloNovoPlanejamento.setText("Adicionar nova despesa");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,24 +107,40 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        labelDescricaoDespesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelDescricaoDespesa.setText("Descrição");
 
+        campoDescricaoDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        cancelarNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cancelarNovoPlanejamento.setText("Cancelar");
+        cancelarNovoPlanejamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelarNovoPlanejamento.addActionListener(this::cancelarNovoPlanejamentoActionPerformed);
 
+        addNovoPlanejamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addNovoPlanejamento.setText("Ok");
+        addNovoPlanejamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addNovoPlanejamento.addActionListener(this::addNovoPlanejamentoActionPerformed);
 
+        labelValorDespesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelValorDespesa.setText("Valor (Total ou Unitário)");
 
+        campoValorDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        labelTipoDespesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelTipoDespesa.setText("Tipo de Despesa");
 
+        comboBoxTipoDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboBoxTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixa (Dividida entre selecionados)", "Por Pessoa (Cobrada por integrante)" }));
+        comboBoxTipoDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboBoxTipoDespesa.addActionListener(this::comboBoxTipoDespesaActionPerformed);
 
+        labelParticipantesDespesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelParticipantesDespesa.setText("Participantes Envolvidos (Segure Ctrl para selecionar vários)");
 
-        listaParticipantesDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        listaParticipantesDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        listaParticipantesDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listaParticipantesDespesa.setFixedCellHeight(30);
         listaParticipantesDespesa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listaParticipantesDespesaMouseClicked(evt);
@@ -140,14 +158,13 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
                     .addComponent(campoValorDespesa)
                     .addComponent(labelValorDespesa)
                     .addComponent(labelDescricaoDespesa)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(labelTipoDespesa)
-                            .addGap(279, 279, 279))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(cancelarNovoPlanejamento)
-                            .addGap(217, 217, 217)
-                            .addComponent(addNovoPlanejamento)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelTipoDespesa)
+                        .addGap(279, 279, 279))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(cancelarNovoPlanejamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addNovoPlanejamento))
                     .addComponent(labelParticipantesDespesa)
                     .addComponent(jScrollPane1)
                     .addComponent(comboBoxTipoDespesa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,7 +174,7 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(labelDescricaoDespesa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoDescricaoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,7 +190,7 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
                 .addComponent(labelParticipantesDespesa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarNovoPlanejamento)
                     .addComponent(addNovoPlanejamento))

@@ -52,15 +52,16 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         campoOrcamentoParticipante = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Participante");
 
         jPanel1.setBackground(new java.awt.Color(4, 76, 244));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        labelTitulo.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         labelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         labelTitulo.setText("Novo Participante");
 
-        labelSubtitulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelSubtitulo.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         labelSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
         labelSubtitulo.setText("Adicionar novo participante");
 
@@ -85,17 +86,31 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        labelCodigoParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelCodigoParticipante.setText("Código");
 
+        campoCodigoParticipante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
+        btnAddNovo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAddNovo.setText("Ok");
+        btnAddNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddNovo.addActionListener(this::btnAddNovoActionPerformed);
 
+        labelNomeParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelNomeParticipante.setText("Nome do participante");
 
+        campoNomeParticipante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoNomeParticipante.addActionListener(this::campoNomeParticipanteActionPerformed);
+
+        labelOrcamentoParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelOrcamentoParticipante.setText("Orçamento");
+
+        campoOrcamentoParticipante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -122,7 +137,7 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(labelCodigoParticipante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoCodigoParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,7 +149,7 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
                 .addComponent(labelOrcamentoParticipante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoOrcamentoParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAddNovo))
@@ -214,6 +229,10 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         // Valida campos
         this.validar();
     }//GEN-LAST:event_btnAddNovoActionPerformed
+
+    private void campoNomeParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeParticipanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNomeParticipanteActionPerformed
 
     private void exibirErro(String msg) {
         JOptionPane.showMessageDialog(this, "Erro: " + msg, "Erro", JOptionPane.ERROR_MESSAGE);
