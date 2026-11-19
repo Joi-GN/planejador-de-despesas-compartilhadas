@@ -4,6 +4,9 @@ import controller.PlanejamentoController;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -16,6 +19,7 @@ import javax.swing.table.JTableHeader;
 import model.Despesa;
 import model.Participante;
 import model.Planejamento;
+import model.RepositorioArquivo;
 
 /**
  *
@@ -33,6 +37,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private DefaultTableModel tabelaDespesasModel;
 
     private PlanejamentoController planejamentoController;
+    private RepositorioArquivo repositorio = new RepositorioArquivo(Path.of("planejamentos.dat"));
 
     /**
      * Creates new form TelaPrincipalTeste
@@ -58,6 +63,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Header = new javax.swing.JPanel();
         labelTitulo = new javax.swing.JLabel();
         labelSubtitulo = new javax.swing.JLabel();
+        btnSalvarPlanejamentos = new javax.swing.JButton();
+        btnCarregarPlanejamentos = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         PainelPlanejamentos = new javax.swing.JPanel();
         labelPlanejamentos = new javax.swing.JLabel();
@@ -89,6 +96,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelSubtitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelSubtitulo.setText("Aplicativo para planejamento de despesas compartilhadas");
 
+        btnSalvarPlanejamentos.setText("Salvar");
+        btnSalvarPlanejamentos.addActionListener(this::btnSalvarPlanejamentosActionPerformed);
+
+        btnCarregarPlanejamentos.setText("Carregar");
+        btnCarregarPlanejamentos.addActionListener(this::btnCarregarPlanejamentosActionPerformed);
+
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
         HeaderLayout.setHorizontalGroup(
@@ -99,6 +112,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(labelSubtitulo)
                     .addComponent(labelTitulo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(HeaderLayout.createSequentialGroup()
+                .addComponent(btnSalvarPlanejamentos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCarregarPlanejamentos)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +125,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelSubtitulo)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvarPlanejamentos)
+                    .addComponent(btnCarregarPlanejamentos))
+                .addContainerGap())
         );
 
         jSplitPane2.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,7 +302,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else if (planejamentoAtual.getParticipantes().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Cadastre pelo menos um participante antes de adicionar despesas.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            var modal = new ModalNovaDespesa(this, rootPaneCheckingEnabled, planejamentoAtual);
+            var modal = new ModalNovaDespesa(this, true, planejamentoAtual);
             modal.setVisible(true);
             if (modal.isValido()) {
                 planejamentoController.adicionarDespesa(planejamentoAtual, modal.getDescricao(), modal.getValor(), modal.isFixa(), modal.getParticipantesSelecionados());
@@ -291,7 +313,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void botaoNovoPlanejamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPlanejamentoActionPerformed
         // Abre o modal de cadastro de novo planejamento
-        var modal = new ModalNovoPlanejamento(this, rootPaneCheckingEnabled);
+        var modal = new ModalNovoPlanejamento(this, true);
         modal.setVisible(true);
         if (modal.isValido()) {
             planejamentoAtual = planejamentoController.criarPlanejamento(modal.getNome());
@@ -330,6 +352,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
             selecionarPlanejamento(indicePlanejamento);
         }
     }//GEN-LAST:event_listaPlanejamentosValueChanged
+
+    private void btnSalvarPlanejamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPlanejamentosActionPerformed
+        try {
+            repositorio.salvar(planejamentos);
+            JOptionPane.showMessageDialog(this, "Salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (NoSuchFileException e) {
+            JOptionPane.showMessageDialog(this, "Arquivo ou pasta do planejamento não encontrado.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Não foi possível acessar o arquivo do planejamento.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSalvarPlanejamentosActionPerformed
+
+    private void btnCarregarPlanejamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarPlanejamentosActionPerformed
+        try {
+            planejamentoController.carregarPlanejamentos(repositorio.carregar());
+            carregarPlanejamentos();
+            JOptionPane.showMessageDialog(this, "Arquivo carregado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCarregarPlanejamentosActionPerformed
 
     private void personalizarTabela() {
 //        tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -533,6 +582,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botaoAddParticipante;
     private javax.swing.JButton botaoExcluirParticipante;
     private javax.swing.JButton botaoNovoPlanejamento;
+    private javax.swing.JButton btnCarregarPlanejamentos;
+    private javax.swing.JButton btnSalvarPlanejamentos;
     private javax.swing.JToolBar grupoBotoes;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPaneDespesas;

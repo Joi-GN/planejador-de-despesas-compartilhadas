@@ -29,6 +29,12 @@ public class PlanejamentoController {
         p.setId(planejamentos.size());
         return p;
     }
+    
+    public void carregarPlanejamentos(List<Planejamento> lista) {
+        for(Planejamento p : lista) {
+            if(!planejamentos.contains(p)) planejamentos.add(p);
+        }
+    }
 
     public void excluirPlanejamento(Planejamento p) {
         planejamentos.remove(p);
