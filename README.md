@@ -3,6 +3,7 @@
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![NetBeans IDE](https://img.shields.io/badge/NetBeans_IDE-%231B6AC6.svg?style=for-the-badge&logo=apache-netbeans-ide&logoColor=white)
+![Maven](https://img.shields.io/badge/apachemaven-%23C71A36.svg?style=for-the-badge&logo=apachemaven&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 </div>
@@ -61,5 +62,8 @@ Em construção..
 <img src="https://i.stack.imgur.com/89Oxe.png">
 
 ## ⚙️ Como Executar o Projeto
-1. Para isso você deve ter instalado no seu computador o Java Development Kit (JDK) na versão 27 ou superior;
-2. Com o JDK instalado e o projeto baixado em seu computador, abra o terminal do seu computador, e estando no caminho onde se encontra os arquivos do projeto no computador, digite ` java .\src\main\java\PlanejadorDeDespesasCompartilhadas.java` e aperte `Enter`.
+1. Para isso você deve ter instalado no seu computador o Java Runtime Environment (JRE) ou Java Development Kit (JDK);
+2. Com o JRE ou JDK instalado e o projeto baixado em seu computador. Abra o arquivo PlanejadorDespesasCompartilhadas.jar com dois cliques;
+3. Se por acaso a aplicação não iniciar, abra o terminal de seu computador e estando no caminho onde o projeto se encontra no computador, digite ` java -jar PlanejadorDespesasCompartilhadas.java ` e aperte Enter.
+
+Obs: Você também pode executar o projeto por meio de uma IDE, como Eclipse, NetBeans, IntelliJ IDEA e outras.
