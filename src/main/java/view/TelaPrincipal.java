@@ -226,7 +226,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelCustoTotal.setText("Custo Total: R$ 0,00");
 
         labelDica1.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
-        labelDica1.setText("Duplo clique em um orçamento ou despesa para editar");
+        labelDica1.setText("Duplo clique em um nome, orçamento ou despesa para editar");
 
         botaoAddParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         botaoAddParticipante.setText("Adicionar Participante");
@@ -495,7 +495,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         JTable tabela = tabelaDespesas;
         TableColumnModel modelo = tabela.getColumnModel();
         int totalColunas = modelo.getColumnCount();
-        if (totalColunas == 0) return;
+        if (totalColunas == 0) {
+            return;
+        }
 
         // Folga interna para não encostar o texto na borda
         int folga = 16 + tabela.getIntercellSpacing().width;
@@ -555,7 +557,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     private void adicionarListenersNaTabelaDespesas() {
-        
+
         //Adiciona listener pra para verificar quando um componente na tabela for redimensionado
         jScrollPaneDespesas.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
@@ -563,7 +565,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 ajustarLarguraColunas();
             }
         });
-        
+
         //Adiciona um mouse listener para ativar a edição de orçamento e editar/excluir despesa 
         tabelaDespesas.addMouseListener(new MouseAdapter() {
             @Override
@@ -582,12 +584,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 int linhaModelo = tabelaDespesas.convertRowIndexToModel(linha);
                 int colunaModelo = tabelaDespesas.convertColumnIndexToModel(coluna);
 
-                //Coluna do orçamento do Participante
-                if (colunaModelo == 1) {
+                //Coluna do Nome do Participante
+                if (colunaModelo == 0) {
+                    Participante p = planejamentoAtual.getParticipantes().get(linhaModelo);
+                    editarNome(p);
+
+                    //Coluna do Orçamento do Participante
+                } else if (colunaModelo == 1) {
                     Participante p = planejamentoAtual.getParticipantes().get(linhaModelo);
                     editarOrcamento(p);
 
-                    // Colunas das despesas
+                    // Colunas das Despesas
                 } else if (colunaModelo >= 2 && colunaModelo < 2 + planejamentoAtual.getDespesas().size()) {
                     Despesa d = planejamentoAtual.getDespesas().get(colunaModelo - 2);
                     editarOuExcluirDespesa(d);
@@ -618,6 +625,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void selecionarPlanejamento(int indice) {
         this.planejamentoAtual = (Planejamento) listaPlanejamentoModel.get(indice);
+    }
+
+    private void editarNome(Participante p) {
+        String entrada = JOptionPane.showInputDialog(this, "Editar nome:", String.valueOf(p.getNome()));
+        if (entrada == null) {
+            return;
+        }
+        p.setNome(entrada);
+        atualizarTabelaDespesas();
     }
 
     private void editarOrcamento(Participante p) {
