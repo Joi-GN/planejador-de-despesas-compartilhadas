@@ -2,6 +2,7 @@ package view;
 
 import controller.PlanejamentoController;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -19,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import model.Despesa;
 import model.Participante;
@@ -46,10 +49,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        personalizarTabela();
         inicializarControladores();
         inicializarModelosComponentes();
-        adicionarMouseListenerNaTabelaDespesas();
+        personalizarTabela();
+        adicionarListenersNaTabelaDespesas();
         carregarPlanejamentos();
     }
 
@@ -330,7 +333,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Métodos acionados por ações do usuário ao interagir com componentes
      */
-    
+
     private void botaoAddParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddParticipanteActionPerformed
         // Adiciona novo participante se existe um planejamento selecionado
         if (planejamentoAtual == null) {
@@ -401,6 +404,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (!listaPlanejamentos.isSelectionEmpty()) {
             int indicePlanejamento = listaPlanejamentos.getSelectedIndex();
             selecionarPlanejamento(indicePlanejamento);
+            atualizarTabelaDespesas();
         }
     }//GEN-LAST:event_listaPlanejamentosValueChanged
 
@@ -431,10 +435,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCarregarPlanejamentosActionPerformed
 
-     /**
+    /**
      * Outros métodos
      */
-
     private void inicializarControladores() {
         planejamentoController = new PlanejamentoController();
     }
@@ -480,26 +483,87 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     new Object[]{"Participantes", "Orçamento", "Total Individual", "Situação"});
         }
 
-        personalizarTabela();
+        ajustarLarguraColunas();
     }
-    
+
     private void personalizarTabela() {
         tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI Semibold", 0, 14));
         tabelaDespesas.getTableHeader().setBackground(new Color(235, 240, 255));
-
-        //Define se as colunas devem ser auto resize
-        final TableColumnModel columnModel = tabelaDespesas.getColumnModel();
-        if (tabelaDespesas.getColumnCount() > 8) {
-            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            for (int column = 0; column < tabelaDespesas.getColumnCount(); column++) {
-                columnModel.getColumn(column).setMinWidth(100);
-            }
-        } else {
-            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        }
     }
 
-    private void adicionarMouseListenerNaTabelaDespesas() {
+    private void ajustarLarguraColunas() {
+        JTable tabela = tabelaDespesas;
+        TableColumnModel modelo = tabela.getColumnModel();
+        int totalColunas = modelo.getColumnCount();
+        if (totalColunas == 0) return;
+
+        // Folga interna para não encostar o texto na borda
+        int folga = 16 + tabela.getIntercellSpacing().width;
+        int larguraDisponivel = jScrollPaneDespesas.getViewport().getWidth();
+
+        int[] larguraIdeal = new int[totalColunas];
+        int somaIdeal = 0;
+
+        for (int col = 0; col < totalColunas; col++) {
+            TableColumn coluna = modelo.getColumn(col);
+
+            // 1) Largura mínima pelo header (nunca menor que ele)
+            TableCellRenderer rendererHeader = coluna.getHeaderRenderer();
+            if (rendererHeader == null) {
+                rendererHeader = tabela.getTableHeader().getDefaultRenderer();
+            }
+            Component compHeader = rendererHeader.getTableCellRendererComponent(
+                    tabela, coluna.getHeaderValue(), false, false, -1, col);
+            int largura = compHeader.getPreferredSize().width;
+
+            // 2) Largura pelo conteúdo: maior célula da coluna
+            for (int linha = 0; linha < tabela.getRowCount(); linha++) {
+                TableCellRenderer renderer = tabela.getCellRenderer(linha, col);
+                Component comp = tabela.prepareRenderer(renderer, linha, col);
+                largura = Math.max(largura, comp.getPreferredSize().width);
+            }
+
+            larguraIdeal[col] = largura + folga;
+            somaIdeal += larguraIdeal[col];
+        }
+
+        if (somaIdeal >= larguraDisponivel) {
+            // Muitas colunas: tamanhos ideais fixos e rolagem horizontal
+            tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            for (int col = 0; col < totalColunas; col++) {
+                TableColumn coluna = modelo.getColumn(col);
+                coluna.setMinWidth(larguraIdeal[col]);
+                coluna.setPreferredWidth(larguraIdeal[col]);
+                coluna.setWidth(larguraIdeal[col]);
+            }
+        } else {
+            // Poucas colunas: preenche todo o espaço, distribuindo a sobra
+            // proporcionalmente ao tamanho ideal de cada coluna
+            tabela.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            int sobra = larguraDisponivel - somaIdeal;
+            for (int col = 0; col < totalColunas; col++) {
+                TableColumn coluna = modelo.getColumn(col);
+                int extra = (int) Math.round((double) sobra * larguraIdeal[col] / somaIdeal);
+                int largura = larguraIdeal[col] + extra;
+
+                coluna.setMinWidth(larguraIdeal[col]); // nunca abaixo do conteúdo
+                coluna.setPreferredWidth(largura);
+                coluna.setWidth(largura);
+            }
+        }
+        tabela.getTableHeader().resizeAndRepaint();
+    }
+
+    private void adicionarListenersNaTabelaDespesas() {
+        
+        //Adiciona listener pra para verificar quando um componente na tabela for redimensionado
+        jScrollPaneDespesas.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                ajustarLarguraColunas();
+            }
+        });
+        
         //Adiciona um mouse listener para ativar a edição de orçamento e editar/excluir despesa 
         tabelaDespesas.addMouseListener(new MouseAdapter() {
             @Override
@@ -554,16 +618,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void selecionarPlanejamento(int indice) {
         this.planejamentoAtual = (Planejamento) listaPlanejamentoModel.get(indice);
-        atualizarTabelaDespesas();
     }
 
     private void editarOrcamento(Participante p) {
         String entrada = JOptionPane.showInputDialog(this, "Novo orçamento de " + p.getNome() + ":", String.valueOf(p.getOrcamento()).replace('.', ','));
-        if (entrada == null) return;
+        if (entrada == null) {
+            return;
+        }
 
         try {
             double valor = Double.parseDouble(entrada.trim().replace(',', '.'));
-            if (valor < 0) throw new NumberFormatException();
+            if (valor < 0) {
+                throw new NumberFormatException();
+            }
             p.setOrcamento(valor);
             atualizarTabelaDespesas();
         } catch (NumberFormatException ex) {
