@@ -82,16 +82,5 @@ public class Planejamento implements Serializable {
 
     public List<Despesa> getDespesas() {
         return despesas;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Planejamento p = (Planejamento) obj;
-        boolean mesmoID = this.getId() == p.getId();
-        boolean mesmoNome = this.getNome()== p.getNome();
-        
-        return mesmoID && mesmoNome;
-    }
-    
-    
+    }  
 }

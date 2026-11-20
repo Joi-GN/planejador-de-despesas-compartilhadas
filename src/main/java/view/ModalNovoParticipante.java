@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package view;
 
 import java.util.function.IntPredicate;
@@ -12,8 +8,6 @@ import javax.swing.JOptionPane;
  * @author Joice
  */
 public class ModalNovoParticipante extends javax.swing.JDialog {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModalNovoParticipante.class.getName());
 
     private boolean valido = false;
     private String nome;
@@ -105,7 +99,6 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         labelNomeParticipante.setText("Nome do participante");
 
         campoNomeParticipante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        campoNomeParticipante.addActionListener(this::campoNomeParticipanteActionPerformed);
 
         labelOrcamentoParticipante.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelOrcamentoParticipante.setText("Orçamento");
@@ -187,11 +180,14 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
             this.codigo = Integer.parseInt(campoCodigoParticipante.getText().trim());
             this.orcamento = Double.parseDouble(campoOrcamentoParticipante.getText().trim().replace(",", "."));
 
-            if (this.getNome().isBlank()) {
+            if (getNome().isBlank()) {
                 throw new IllegalArgumentException("O nome não pode estar vazio.");
             }
             if (verificadorCodigo != null && verificadorCodigo.test(codigo)) {
                 throw new IllegalArgumentException("Já existe um participante com o código " + codigo + ".");
+            }
+            if (getOrcamento() < 0) {
+                throw new IllegalArgumentException("O orçamento não pode ser negativo.");
             }
             
             this.valido = true;
@@ -230,10 +226,6 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
         this.validar();
     }//GEN-LAST:event_btnAddNovoActionPerformed
 
-    private void campoNomeParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeParticipanteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoNomeParticipanteActionPerformed
-
     private void exibirErro(String msg) {
         JOptionPane.showMessageDialog(this, "Erro: " + msg, "Erro", JOptionPane.ERROR_MESSAGE);
     }
@@ -242,23 +234,6 @@ public class ModalNovoParticipante extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

@@ -18,9 +18,7 @@ import model.Planejamento;
  * @author Joice
  */
 public class ModalNovaDespesa extends javax.swing.JDialog {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ModalNovaDespesa.class.getName());
-
+    
     DefaultListModel listaParticipantesDespesaModel;
     private boolean valido = false;
     private String descricao;
@@ -133,7 +131,6 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
         comboBoxTipoDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboBoxTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixa (Dividida entre selecionados)", "Por Pessoa (Cobrada por integrante)" }));
         comboBoxTipoDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        comboBoxTipoDespesa.addActionListener(this::comboBoxTipoDespesaActionPerformed);
 
         labelParticipantesDespesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         labelParticipantesDespesa.setText("Participantes Envolvidos (Segure Ctrl para selecionar vários)");
@@ -141,11 +138,6 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
         listaParticipantesDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         listaParticipantesDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listaParticipantesDespesa.setFixedCellHeight(30);
-        listaParticipantesDespesa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaParticipantesDespesaMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(listaParticipantesDespesa);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -258,13 +250,13 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
             } else {
                 this.valido = true;
                 JOptionPane.showMessageDialog(rootPane,
-                        "Despesa salva com sucesso");
+                        "Despesa salva com sucesso.");
                 this.dispose();
             }
         } catch (NumberFormatException e) {
             exibirErro("Código e Orçamento devem ser numéricos.");
         } catch (Exception e) {
-            exibirErro("Houve um erro ao salvar o planejamento: " + e.getMessage());
+            exibirErro(e.getMessage());
         }
     }
 
@@ -286,35 +278,10 @@ public class ModalNovaDespesa extends javax.swing.JDialog {
         this.validar();
     }//GEN-LAST:event_addNovoPlanejamentoActionPerformed
 
-    private void comboBoxTipoDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTipoDespesaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxTipoDespesaActionPerformed
-
-    private void listaParticipantesDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaParticipantesDespesaMouseClicked
-
-    }//GEN-LAST:event_listaParticipantesDespesaMouseClicked
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

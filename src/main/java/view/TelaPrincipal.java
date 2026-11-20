@@ -31,8 +31,6 @@ import model.RepositorioArquivo;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaPrincipal.class.getName());
-
 //  Variáveis
     private List<Planejamento> planejamentos = new ArrayList<>();
     private Planejamento planejamentoAtual;
@@ -44,7 +42,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private RepositorioArquivo repositorio = new RepositorioArquivo(Path.of("planejamentos.dat"));
 
     /**
-     * Creates new form TelaPrincipalTeste
+     * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
@@ -218,6 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabelaDespesas.setAutoscrolls(false);
         tabelaDespesas.setRowHeight(35);
         tabelaDespesas.setShowGrid(true);
+        tabelaDespesas.setShowVerticalLines(false);
         jScrollPaneDespesas.setViewportView(tabelaDespesas);
 
         labelCustoTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -328,6 +327,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Métodos acionados por ações do usuário ao interagir com componentes
+     */
+    
     private void botaoAddParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddParticipanteActionPerformed
         // Adiciona novo participante se existe um planejamento selecionado
         if (planejamentoAtual == null) {
@@ -428,21 +431,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCarregarPlanejamentosActionPerformed
 
-    private void personalizarTabela() {
-        tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI Semibold", 0, 14));
-        tabelaDespesas.getTableHeader().setBackground(new Color(235, 240, 255));
-
-        //Define se as colunas devem ser auto resize
-        final TableColumnModel columnModel = tabelaDespesas.getColumnModel();
-        if (tabelaDespesas.getColumnCount() > 8) {
-            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            for (int column = 0; column < tabelaDespesas.getColumnCount(); column++) {
-                columnModel.getColumn(column).setMinWidth(100);
-            }
-        } else {
-            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        }
-    }
+     /**
+     * Outros métodos
+     */
 
     private void inicializarControladores() {
         planejamentoController = new PlanejamentoController();
@@ -490,6 +481,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
 
         personalizarTabela();
+    }
+    
+    private void personalizarTabela() {
+        tabelaDespesas.getTableHeader().setFont(new Font("Segoe UI Semibold", 0, 14));
+        tabelaDespesas.getTableHeader().setBackground(new Color(235, 240, 255));
+
+        //Define se as colunas devem ser auto resize
+        final TableColumnModel columnModel = tabelaDespesas.getColumnModel();
+        if (tabelaDespesas.getColumnCount() > 8) {
+            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            for (int column = 0; column < tabelaDespesas.getColumnCount(); column++) {
+                columnModel.getColumn(column).setMinWidth(100);
+            }
+        } else {
+            tabelaDespesas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        }
     }
 
     private void adicionarMouseListenerNaTabelaDespesas() {
@@ -552,15 +559,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void editarOrcamento(Participante p) {
         String entrada = JOptionPane.showInputDialog(this, "Novo orçamento de " + p.getNome() + ":", String.valueOf(p.getOrcamento()).replace('.', ','));
-        if (entrada == null) {
-            return;
-        }
+        if (entrada == null) return;
 
         try {
             double valor = Double.parseDouble(entrada.trim().replace(',', '.'));
-            if (valor < 0) {
-                throw new NumberFormatException();
-            }
+            if (valor < 0) throw new NumberFormatException();
             p.setOrcamento(valor);
             atualizarTabelaDespesas();
         } catch (NumberFormatException ex) {
@@ -636,5 +639,4 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JTable tabelaDespesas;
     // End of variables declaration//GEN-END:variables
-
 }

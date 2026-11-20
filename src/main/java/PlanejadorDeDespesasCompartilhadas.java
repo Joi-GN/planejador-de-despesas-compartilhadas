@@ -1,4 +1,3 @@
-
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
