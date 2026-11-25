@@ -81,7 +81,7 @@ Com a aplicação é possível fazer planejamentos de atividades em grupos e faz
 <img src="https://i.stack.imgur.com/89Oxe.png">
 
 ## ⚙️ Como Executar o Projeto
-1. Para isso você deve ter instalado no seu computador o Java Runtime Environment (JRE) ou Java Development Kit (JDK);
+1. Para isso você deve ter instalado no seu computador o Java Runtime Environment (JRE) ou Java Development Kit (JDK) na versão 27;
 2. Abra o terminal de seu computador e estando no caminho onde o projeto se encontra no computador, digite ` java -jar PlanejadorDespesasCompartilhadas.java ` e aperte Enter.
 
 > Obs: Você também pode executar o projeto por meio de uma IDE, como Eclipse, NetBeans, IntelliJ IDEA e outras.

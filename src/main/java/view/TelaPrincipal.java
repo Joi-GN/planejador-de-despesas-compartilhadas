@@ -629,7 +629,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void editarNome(Participante p) {
         String entrada = JOptionPane.showInputDialog(this, "Editar nome:", String.valueOf(p.getNome()));
-        if (entrada == null) {
+        if (entrada.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "O nome não pode estar vazio.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
         p.setNome(entrada);
@@ -671,7 +674,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (escolha == 0) { // Salvar
             try {
                 double valor = Double.parseDouble(campoValor.getText().trim().replace(',', '.'));
-                if (valor < 0) {
+                if (valor <= 0) {
                     throw new NumberFormatException();
                 }
                 d.setValor(valor);
